@@ -8,7 +8,7 @@ const int inPin = 12;
 
 const int stepDegreeAlpha = 2;
 const int stepDegreeBeta = 2;
-const int stepDelay = 10;
+const int stepDelay = 20;
 
 boolean reverse = false;
 
@@ -37,16 +37,21 @@ void loop() {
 
   int beta = 0;
 
-  for (int alpha = 0; alpha < 180; alpha = alpha + stepDegreeAlpha) {
+  for (int alpha = 172; alpha <= 180; alpha += stepDegreeAlpha) {
     alphaServo.write(alpha);
+    beta = !reverse ? 0 : 180;
     do {
       betaServo.write(beta);
       delay(stepDelay);
       printMeasure(alpha, beta, measureDistanceCm());
-      beta = !reverse ? beta + stepDegreeBeta : beta - stepDegreeBeta;
-    } while (beta > 0 && beta < 180);
+      beta += !reverse ? stepDegreeBeta : -stepDegreeBeta;
+    } while (beta >= 0 && beta <= 180);
     reverse = !reverse;
   }
+  
+  delay(5000);
+  
+  Serial.print("OKOKOKOK");
 
 }
 
