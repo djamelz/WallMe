@@ -8,7 +8,7 @@ const int inPin = 12;
 
 const int stepDegreeAlpha = 2;
 const int stepDegreeBeta = 2;
-const int stepDelay = 10;
+const int stepDelay = 15;
 
 boolean reverse = false;
 
