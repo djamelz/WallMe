@@ -45,6 +45,8 @@ import wall.me.data.PolarSample;
  * Interface vers Jzy3d, s'appuie sur un PolarMesh
  * Les polygones d'affichage sont crŽŽs ici
  * Les distances > MAX_D sont ignorŽes (correspond ˆ peu prs ˆ l'infini du capteur)
+ * 
+ * Code couleur pour les polygones : R = 1, G = alpha (0..180 -> 0..1), B = beta (0..180 -> 0..1)
  * @author tvial
  *
  */
@@ -112,6 +114,9 @@ public class Display extends AbstractAnalysis {
 				poly.add(new Point(p3.toCoord3d()));
 				poly.add(new Point(p4.toCoord3d()));
 				
+				poly.setColor(new org.jzy3d.colors.Color(1f, (float)(p1.alpha / Math.PI), (float)(p1.beta / Math.PI), .9f));
+				poly.setFaceDisplayed(true);
+				
 				System.out.println(p1);
 				System.out.println(p2);
 				System.out.println(p3);
@@ -123,7 +128,7 @@ public class Display extends AbstractAnalysis {
 		}
         
 		Shape surface = new Shape(polys);
-		surface.setColorMapper(new ColorMapper(new ColorMapRainbow(), surface.getBounds().getZmin(), surface.getBounds().getZmax(), new org.jzy3d.colors.Color(1,1,1,1f)));
+		//surface.setColorMapper(new ColorMapper(new ColorMapRainbow(), surface.getBounds().getZmin(), surface.getBounds().getZmax(), new org.jzy3d.colors.Color(1,1,1,1f)));
 		surface.setWireframeDisplayed(true);
 		surface.setWireframeColor(org.jzy3d.colors.Color.BLACK);
 		
