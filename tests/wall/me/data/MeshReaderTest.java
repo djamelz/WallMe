@@ -1,6 +1,11 @@
 package wall.me.data;
 
-
+/**
+ * Tests U de MeshReader
+ * Pas ˆ jour + devrait utiliser JUnit
+ * @author tvial
+ *
+ */
 public class MeshReaderTest {
 	public static void main(String[] args) throws Exception {
 		testNextSample();
@@ -53,6 +58,6 @@ public class MeshReaderTest {
 	}
 	
 	private static double scl(double z) {
-		return z / MeshReader.ZSCALE;
+		return z;
 	}
 }

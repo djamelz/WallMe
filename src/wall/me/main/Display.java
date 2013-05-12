@@ -41,8 +41,15 @@ import wall.me.data.PolarMesh;
 import wall.me.data.PolarSample;
 
 
+/**
+ * Interface vers Jzy3d, s'appuie sur un PolarMesh
+ * Les polygones d'affichage sont créés ici
+ * Les distances > MAX_D sont ignorées (correspond à peu près à l'infini du capteur)
+ * @author tvial
+ *
+ */
 public class Display extends AbstractAnalysis {
-	private static final double MAX_D = 400.0 / MeshReader.ZSCALE;
+	private static final double MAX_D = 400.0;
 	
 	private PolarMesh mesh;
 	
@@ -59,6 +66,7 @@ public class Display extends AbstractAnalysis {
 		makePolys(chart.getScene());
 	}
 	
+	// Crée un nuage de points
 	private void makeScatter(ChartScene scene) {
 		int nPoints = mesh.getNPoints();
 		int curPoint = 0;
@@ -83,8 +91,7 @@ public class Display extends AbstractAnalysis {
 		List<PolarSample[]> columns = mesh.getColumns();
 		System.out.println(columns.size() + " rows");
 		
-		// TVI : -1 -> -2
-		for (int i = 0; i < columns.size() - 2; i++) {
+		for (int i = 0; i < columns.size() - 1; i++) {
 			PolarSample[] col1 = columns.get(i);
 			PolarSample[] col2 = columns.get(i + 1);
 			

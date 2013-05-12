@@ -2,6 +2,13 @@ package wall.me.data;
 
 import java.io.PrintWriter;
 
+/**
+ * Génère un fichier de test sous forme de portion de sphère
+ * !! ne pas utiliser (pas conforme au format attendu, l'ordre d'imbrication des boucles alpha et beta est inversé)
+ * 
+ * @author tvial
+ *
+ */
 public class SampleGeneratorSphere {
 	public static void main(String[] args) throws Exception {
 		String fileName = "/tmp/sample.txt";

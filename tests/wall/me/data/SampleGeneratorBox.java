@@ -2,6 +2,11 @@ package wall.me.data;
 
 import java.io.PrintWriter;
 
+/**
+ * Générateur de fichier de test sous forme de demi-cube (ou presque)
+ * @author tvial
+ *
+ */
 public class SampleGeneratorBox {
 	public static void main(String[] args) throws Exception {
 		String fileName = "/tmp/sample.txt";

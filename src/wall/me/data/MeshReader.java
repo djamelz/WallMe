@@ -5,9 +5,23 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
-public class MeshReader {
-	public static final double ZSCALE = 400.0;
+import wall.me.utils.Angles;
 
+/**
+ * Lecture d'un fichier de capture
+ * Format : liste de triplets alpha;beta;distance
+ * - alpha = longitude (0..180)
+ * - beta = latitude (0..180, 90 étant la verticale)
+ * - distance = mesure en cm sur les coordonnées (alpha, beta)
+ * 
+ * Les angles sont convertis en radians à la lecture
+ * L'ordre des triplets est important : alpha en boucle extérieure, beta en boucle intérieure (ascendant ou descendant)
+ * Le nb de paires beta;distance doit être le même pour tous les alpha (cf. getAlphaRange())
+ * 
+ * @author tvial
+ *
+ */
+public class MeshReader {
 	private int alphaRange = -1;
 	private BufferedReader reader;
 
@@ -33,6 +47,11 @@ public class MeshReader {
 		open();
 	}
 	
+	/**
+	 * Calcule la taille des échantillons
+	 * @return
+	 * @throws Exception
+	 */
 	public int getAlphaRange() throws Exception {
 		
 		if (alphaRange == -1) {
@@ -51,6 +70,11 @@ public class MeshReader {
 		return alphaRange;
 	}
 	
+	/**
+	 * Ramène l'échantillon suivant
+	 * @return
+	 * @throws Exception
+	 */
 	public PolarSample nextSample() throws Exception {
 		String line = reader.readLine();
 		if (line == null) {
@@ -77,14 +101,11 @@ public class MeshReader {
 			return null;
 		}
 		
-		return new PolarSample(rad(Double.parseDouble(fields[0])), rad(Double.parseDouble(fields[1])), Double.parseDouble(fields[2]) / ZSCALE);
+		return new PolarSample(Angles.rad(Double.parseDouble(fields[0])), Angles.rad(Double.parseDouble(fields[1])), Double.parseDouble(fields[2]));
 	}
 	
 	public void dispose() throws Exception {
 		reader.close();
 	}
-	
-	private static double rad(double deg) {
-		return Math.PI * deg / 180.0;
-	}
+
 }
