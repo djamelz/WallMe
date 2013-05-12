@@ -42,6 +42,8 @@ import wall.me.data.PolarSample;
 
 
 public class Display extends AbstractAnalysis {
+	private static final double MAX_D = 400.0 / MeshReader.ZSCALE;
+	
 	private PolarMesh mesh;
 	
 	public Display(PolarMesh mesh){
@@ -91,16 +93,22 @@ public class Display extends AbstractAnalysis {
 					System.out.println(col1.length + " cols");
 				}
 				
-				Polygon poly = new Polygon();
-				poly.add(new Point(col1[j].toCoord3d()));
-				poly.add(new Point(col2[j].toCoord3d()));
-				poly.add(new Point(col2[j + 1].toCoord3d()));
-				poly.add(new Point(col1[j + 1].toCoord3d()));
+				PolarSample p1 = col1[j], p2 = col2[j], p3 = col2[j + 1], p4 = col1[j + 1];
 				
-				printPS(col1[j]);
-				printPS(col2[j]);
-				printPS(col2[j + 1]);
-				printPS(col1[j + 1]);
+				if (p1.distance > MAX_D || p2.distance > MAX_D || p3.distance > MAX_D || p4.distance > MAX_D) {
+					continue;
+				}
+				
+				Polygon poly = new Polygon();
+				poly.add(new Point(p1.toCoord3d()));
+				poly.add(new Point(p2.toCoord3d()));
+				poly.add(new Point(p3.toCoord3d()));
+				poly.add(new Point(p4.toCoord3d()));
+				
+				System.out.println(p1);
+				System.out.println(p2);
+				System.out.println(p3);
+				System.out.println(p4);
 				System.out.println();
 				
 				polys.add(poly);
@@ -113,16 +121,5 @@ public class Display extends AbstractAnalysis {
 		surface.setWireframeColor(org.jzy3d.colors.Color.BLACK);
 		
 		scene.add(surface);
-	}
-	
-	private void printPS(PolarSample p) {
-		double x = deg(p.alpha);
-		double y = deg(p.beta);
-		double z = p.distance * MeshReader.ZSCALE;
-		System.out.println(x + " - " + y + " - " + z);
-	}
-	
-	private double deg(double rad) {
-		return rad * 180 / Math.PI;
 	}
 }

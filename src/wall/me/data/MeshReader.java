@@ -59,13 +59,19 @@ public class MeshReader {
 		
 		String[] fields = line.split(";");
 		
-		if ("180".equals(fields[1])) {
-			line = reader.readLine();
-			if (line == null) {
-				return null;
-			}
-			fields = line.split(";");
-		}
+		// Pour captureX, X < 5 (manquent des indices)
+//		if ("180".equals(fields[1]) || "0".equals(fields[1])) {
+//			line = reader.readLine();
+//			if (line == null) {
+//				return null;
+//			}
+//			fields = line.split(";");
+//		}
+		
+		// Pour capture5 (dernire colonne incomplte)
+//		if ("174".equals(fields[0])) {
+//			return null;
+//		}
 		
 		if (fields.length != 3) {
 			return null;

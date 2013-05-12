@@ -16,11 +16,15 @@ public class PolarMesh {
 	}
 	
 	public void add(PolarSample sample) {
+		//if (sample.toCoord3d().z > .1) { return; }
+		
 		if (currentCol == null) {
 			currentCol = new PolarSample[range];
 			columns.add(currentCol);
 			currentFilling = 0;
 		}
+		
+		//System.out.println("col=" + (columns.size() - 1) + " - row=" + currentFilling + " pt=" + sample);
 		
 		currentCol[currentFilling++] = sample;
 		if (currentFilling >= range) {

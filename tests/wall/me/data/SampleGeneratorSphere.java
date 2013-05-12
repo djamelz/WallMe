@@ -2,7 +2,7 @@ package wall.me.data;
 
 import java.io.PrintWriter;
 
-public class SampleGenerator {
+public class SampleGeneratorSphere {
 	public static void main(String[] args) throws Exception {
 		String fileName = "/tmp/sample.txt";
 		if (args.length >= 1) {
