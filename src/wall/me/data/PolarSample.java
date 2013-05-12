@@ -11,7 +11,7 @@ import wall.me.utils.Angles;
  *
  */
 public class PolarSample {
-	private static final double DIST_SCALE = 400.0;
+	private static final double DIST_SCALE = 1.0; //400.0;
 	
 	// L1 : entre Servo 1 et Servo 2 (bras du Servo 1)
 	// L2 : bras du Servo 2
