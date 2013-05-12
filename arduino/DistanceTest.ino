@@ -8,7 +8,7 @@ const int inPin = 12;
 
 const int stepDegreeAlpha = 2;
 const int stepDegreeBeta = 2;
-const int stepDelay = 50;
+const int stepDelay = 100;
 
 boolean reverse = false;
 
@@ -32,22 +32,8 @@ void loop() {
   if (digitalRead(inPin) == HIGH) {
     return;
   }
-
-  Serial.println("alphaDegree;betaDegree;distanceCm");
-
-  int beta = 0;
-
-  for (int alpha = 0; alpha <= 180; alpha += stepDegreeAlpha) {
-    alphaServo.write(alpha);
-    beta = !reverse ? 0 : 180;
-    do {
-      betaServo.write(beta);
-      delay(stepDelay);
-      printMeasure(alpha, beta, measureDistanceCm());
-      beta += !reverse ? stepDegreeBeta : -stepDegreeBeta;
-    } while (beta >= 0 && beta <= 180);
-    reverse = !reverse;
-  }
+  
+  Serial.println(measureDistanceCm());
 
 }
 
