@@ -6,7 +6,6 @@ import wall.me.data.PolarSample;
 
 public class WallMe {
 	public static void main(String[] args) throws Exception {
-		
 		String fileName = "@" + args[0];
 		System.out.println("Reading " + fileName);
 		MeshReader mr = new MeshReader(fileName);
@@ -24,6 +23,8 @@ public class WallMe {
 				}
 			} while (sample != null);
 			
+			System.out.println("Smoothing");
+			mesh = mesh.smooth();
 			System.out.println("Displaying");
 			new Display(mesh).run();
 		}
