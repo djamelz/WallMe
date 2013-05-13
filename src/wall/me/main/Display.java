@@ -65,6 +65,7 @@ public class Display extends AbstractAnalysis {
 	
 	public void init() {
 		chart = new Chart(Quality.Advanced, "newt");
+		chart.getView().setSquared(false);
 		makePolys(chart.getScene());
 	}
 	
