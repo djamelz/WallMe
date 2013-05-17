@@ -18,6 +18,7 @@ public class PolarSample {
 	// L3 : hauteur du capteur
 	public static final double L1 = 2.0 / DIST_SCALE, L2 = 5.0 / DIST_SCALE, L3 = 1.0 / DIST_SCALE;
 	
+	// Angles en radians (conversion faite dans MeshReader)
 	public double alpha;
 	public double beta;
 	public double distance;
@@ -34,10 +35,14 @@ public class PolarSample {
 		Coord3d coord = new Coord3d(alpha, beta, distance / DIST_SCALE);
 		coord = coord.cartesian();
 		
-		// Correction des bras de levier -- change pas grand-chose et pas sžr que la formule soit bonne...
-//		coord.x -= Math.cos(alpha) * (L1 + L2 * Math.cos(beta));
-//		coord.y -= Math.sin(alpha) * (L1 + L2 * Math.cos(beta));
-//		coord.z -= L2 * Math.sin(beta) + L3 * Math.cos(beta);
+		// Correction des bras de levier
+		double cx = L1, cy = L2, cz = L3;
+		double cx1 = cx, cy1 = cy * Math.cos(beta) - cz * Math.sin(beta), cz1 = cy * Math.sin(beta) + cz * Math.cos(beta);
+		double cx2 = cx1 * Math.cos(alpha) - cy1 * Math.sin(alpha), cy2 = cx1 * Math.sin(alpha) + cy1 * Math.cos(alpha), cz2 = cz1;
+		
+		coord.x += (float)cx2;
+		coord.y += (float)cy2;
+		coord.z += (float)cz2;
 		
 		return coord;
 	}
